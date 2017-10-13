@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.mainController">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
@@ -37,7 +37,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <TextField layoutX="650.0" layoutY="45.0" prefHeight="30.0" prefWidth="310.0" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="45.0">
+                                <TextField fx:id="sku" layoutX="650.0" layoutY="45.0" prefHeight="30.0" prefWidth="310.0" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="45.0">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
@@ -62,7 +62,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </TextField>
-                                <Label layoutX="647.0" layoutY="193.0" text="Quantity:" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="245.0">
+                                <Label layoutX="647.0" layoutY="250.0" text="Quantity:" AnchorPane.rightAnchor="496.0" AnchorPane.topAnchor="250.0">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
@@ -72,7 +72,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </TextField>
-                                <Label layoutX="647.0" layoutY="193.0" prefWidth="50.0" text="Price:" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="195.0">
+                                <Label layoutX="647.0" layoutY="200.0" prefWidth="50.0" text="Price:" AnchorPane.rightAnchor="503.0" AnchorPane.topAnchor="200.0">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
@@ -92,12 +92,12 @@
                                         <Font size="14.0" />
                                     </font>
                                 </TextField>
-                                <Button layoutX="650.0" layoutY="334.0" mnemonicParsing="false" text="Delete" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="350.0">
+                                <Button fx:id="stockDelete" layoutX="650.0" layoutY="334.0" mnemonicParsing="false" onAction="#workInProgress" text="Delete" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="350.0">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </Button>
-                                <Button layoutX="894.0" layoutY="334.0" mnemonicParsing="false" text="Update" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="350.0">
+                                <Button layoutX="894.0" layoutY="334.0" mnemonicParsing="false" onAction="#workInProgress" text="Update" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="350.0">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
@@ -308,6 +308,7 @@
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#openFile" text="File Path" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

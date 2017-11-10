@@ -1,4 +1,4 @@
-package mainPak;
+package Model;
 
 public class PurchaseOrder {
     private int poID;

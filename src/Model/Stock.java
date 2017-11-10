@@ -1,4 +1,4 @@
-package mainPak;
+package Model;
 
 public class Stock {
     private int sku;

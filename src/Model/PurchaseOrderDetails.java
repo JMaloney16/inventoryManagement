@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class PurchaseOrderDetails {
     private int invoiceNo;

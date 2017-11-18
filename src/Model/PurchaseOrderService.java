@@ -9,7 +9,7 @@ class PurchaseOrderService {
 
     public static void selectAll(List<PurchaseOrder> targetList, DatabaseConnection database) {
 
-        PreparedStatement statement = database.newStatement("SELECT poID, ${invoiceNo}, sku FROM PurchaseOrder ORDER B${invoiceNo} poID}}");
+        PreparedStatement statement = database.newStatement("SELECT poID, invoiceNo, sku FROM PurchaseOrder ORDER By poID}}");
 
         try {
             if (statement != null) {
@@ -18,7 +18,7 @@ class PurchaseOrderService {
 
                 if (results != null) {
                     while (results.next()) {
-                        targetList.add(new PurchaseOrder(results.getInt("poID"), results.getString("invoiceNo"), results.getString("sku")));
+                        targetList.add(new PurchaseOrder(results.getInt("poID"), results.getInt("invoiceNo"), results.getInt("sku"), results.getInt("quantity"), results.getInt("unitCost")));
                     }
                 }
             }
@@ -40,7 +40,7 @@ class PurchaseOrderService {
                 ResultSet results = database.executeQuery(statement);
 
                 if (results != null) {
-                    result = new PurchaseOrder(results.getInt("${poID}"), results.getString("invoiceNo"), results.getString("sku"));
+                    result = new PurchaseOrder(results.getInt("poID"), results.getInt("invoiceNo"), results.getInt("sku"), results.getInt("quantity"), results.getInt("unitCost"));
                 }
             }
         } catch (SQLException resultsException) {
@@ -53,21 +53,24 @@ class PurchaseOrderService {
     public static void save(PurchaseOrder itemToSave, DatabaseConnection database) {
 
         PurchaseOrder existingItem = null;
-        if (itemToSave.getId() != 0) existingItem = selectById(itemToSave.getId(), database);
+        if (itemToSave.getPoID() != 0) existingItem = selectById(itemToSave.getPoID(), database);
 
         try {
             if (existingItem == null) {
-                PreparedStatement statement = database.newStatement("INSERT INTO PurchaseOrder (POID, InvoiceNumber, SKU) VALUES (?, ?, ?))");
-                statement.setString(1, itemToSave.getA());
-                statement.setString(2, itemToSave.getB());
-                statement.setString(3, itemToSave.getC());
+                PreparedStatement statement = database.newStatement("INSERT INTO PurchaseOrder (POID, InvoiceNumber, SKU, Quantity, Unit Cost) VALUES (?, ?, ?, ?, ?))");
+                statement.setInt(1, itemToSave.getPoID());
+                statement.setInt(2, itemToSave.getInvoiceNo());
+                statement.setInt(3, itemToSave.getSku());
+                statement.setInt(4, itemToSave.getQuantity());
+                statement.setInt(5, itemToSave.getUnitCost());
                 database.executeUpdate(statement);
             } else {
-                PreparedStatement statement = database.newStatement("UPDATE PurchaseOrder SET POID = ?, InvoiceNumber = ?, SKU = ? WHERE id = ?");
-                statement.setString(1, itemToSave.getA());
-                statement.setString(2, itemToSave.getB());
-                statement.setString(3, itemToSave.getC());
-                statement.setInt(4, itemToSave.getId());
+                PreparedStatement statement = database.newStatement("UPDATE PurchaseOrder SET POID = ?, InvoiceNumber = ?, SKU = ?, Quantity = ?, Unit Cost = ? WHERE id = ?");
+                statement.setInt(1, itemToSave.getPoID());
+                statement.setInt(2, itemToSave.getInvoiceNo());
+                statement.setInt(3, itemToSave.getSku());
+                statement.setInt(4, itemToSave.getQuantity());
+                statement.setInt(5, itemToSave.getUnitCost());
                 database.executeUpdate(statement);
             }
         } catch (SQLException resultsException) {

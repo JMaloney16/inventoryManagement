@@ -1,4 +1,4 @@
-package Model;
+package Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +26,7 @@ public class mainController {
 
     public void openFile(){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("file.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/file.fxml"));
             Parent fileRoot = (Parent) fxmlLoader.load();
             Stage fileStage = new Stage();
             fileStage.setTitle("Select File");

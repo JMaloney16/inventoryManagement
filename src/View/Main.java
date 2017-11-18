@@ -1,5 +1,8 @@
-package Model;
+package View;
 
+import Model.DatabaseConnection;
+import Model.Stock;
+import Model.stockService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

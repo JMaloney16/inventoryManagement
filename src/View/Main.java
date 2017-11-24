@@ -17,7 +17,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        database = new DatabaseConnection("inventory.db");
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setTitle("Inventory Management");
         primaryStage.setScene(new Scene(root, 1200, 800));
@@ -31,6 +30,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        database = new DatabaseConnection("inventory.db");
         launch(args);
 
     }

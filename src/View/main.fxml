@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.mainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.mainController">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
@@ -26,7 +26,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
+                                <TableView id="stockTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
                                     <columns>
                                         <TableColumn prefWidth="75.0" text="C1" />
                                         <TableColumn prefWidth="75.0" text="C2" />
@@ -216,7 +216,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </TextField>
-                                <ListView layoutX="849.0" layoutY="77.0" prefHeight="616.0" prefWidth="310.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="84.0" />
+                                <ListView id="aStockList" layoutX="849.0" layoutY="77.0" prefHeight="616.0" prefWidth="310.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="84.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -224,7 +224,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
+                                <TableView id="supplierTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
                                     <columns>
                                         <TableColumn prefWidth="75.0" text="C1" />
                                         <TableColumn prefWidth="75.0" text="C2" />

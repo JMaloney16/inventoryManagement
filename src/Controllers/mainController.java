@@ -14,7 +14,6 @@ public class mainController {
     TextField sku;
 
 
-
     public void workInProgress(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Work in progress!");

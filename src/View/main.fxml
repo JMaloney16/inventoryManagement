@@ -280,7 +280,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </TextField>
-                                <Button layoutX="775.0" layoutY="334.0" mnemonicParsing="false" text="Create">
+                                <Button layoutX="775.0" layoutY="324.0" mnemonicParsing="false" text="Create">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
@@ -302,6 +302,7 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
+                  <MenuItem mnemonicParsing="false" onAction="#connectDatabase" text="Connect to database" />
                         <MenuItem mnemonicParsing="false" text="Close" />
                     </items>
                 </Menu>

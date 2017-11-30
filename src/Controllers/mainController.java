@@ -1,18 +1,40 @@
 package Controllers;
 
+import Model.DatabaseConnection;
+import Model.Stock;
+import Model.Supplier;
+import Model.stockService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class mainController {
 
     @FXML
     TextField sku;
+    @FXML
+    TableView stockTable;
+    @FXML
+    TableView supplierTable;
+    @FXML
+    ListView<Stock> aStockList;
 
+    private DatabaseConnection database;
+    private ArrayList<Stock> stockArrayList = new ArrayList<>();
+    private ArrayList<Supplier> supplierArrayList = new ArrayList<>();
+
+
+    public void connectDatabase(){
+        System.out.println("Connecting to database");
+        database = new DatabaseConnection("inventory.db");
+        updateTables();
+    }
 
     public void workInProgress(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -35,6 +57,13 @@ public class mainController {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void updateTables(){
+        stockArrayList.clear();
+        stockService.selectAll(stockArrayList, database);
+
+        aStockList.setItems(FXCollections.observableArrayList(stockArrayList));
     }
 
 

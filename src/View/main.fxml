@@ -26,12 +26,6 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView id="stockTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
-                                    <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
-                                    </columns>
-                                </TableView>
                                 <Label layoutX="652.0" layoutY="25.0" prefHeight="20.0" prefWidth="50.0" text="SKU:" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="25.0">
                                     <font>
                                         <Font size="14.0" />
@@ -97,6 +91,15 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Button>
+                                <TableView id="stockTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
+                                    <columns>
+                                        <TableColumn id="skuColumn" prefWidth="75.0" text="SKU" />
+                                        <TableColumn id="stockNameColumn" prefWidth="75.0" text="Name" />
+                              <TableColumn id="stockSupplierIDColumn" prefWidth="75.0" text="Supplier ID" />
+                              <TableColumn id="quantityColumn" prefWidth="75.0" text="Quantity" />
+                              <TableColumn id="categoryColumn" prefWidth="75.0" text="Category" />
+                                    </columns>
+                                </TableView>
                                 <Button layoutX="894.0" layoutY="334.0" mnemonicParsing="false" onAction="#workInProgress" text="Update" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="350.0">
                                     <font>
                                         <Font size="14.0" />
@@ -226,8 +229,13 @@
                             <children>
                                 <TableView id="supplierTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
                                     <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
+                                        <TableColumn id="supplierIDColumn" prefWidth="75.0" text="Supplier ID" />
+                                        <TableColumn id="supplierNameColumn" prefWidth="75.0" text="Supplier Name" />
+                              <TableColumn id="addressColumn" prefWidth="75.0" text="Address" />
+                              <TableColumn id="cityColumn" prefWidth="75.0" text="City" />
+                              <TableColumn id="postcodeColumn" prefWidth="75.0" text="Postcode" />
+                              <TableColumn id="phoneNoColumn" prefWidth="75.0" text="Phone No." />
+                              <TableColumn id="emailColumn" prefWidth="75.0" text="Email Address" />
                                     </columns>
                                 </TableView>
                                 <Label layoutX="652.0" layoutY="25.0" prefHeight="20.0" text="Supplier ID:" AnchorPane.rightAnchor="476.0" AnchorPane.topAnchor="25.0">

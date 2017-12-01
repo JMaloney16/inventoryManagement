@@ -16,7 +16,12 @@ public class stockService {
 
                 if(results != null) {
                     while (results.next()){
-                        destination.add(new Stock(results.getInt("sku"), results.getString("name"), results.getInt("quantity"), results.getString("category")));
+                        destination.add(new Stock(
+                                results.getInt("sku"),
+                                results.getString("name"),
+                                results.getInt("quantity"),
+                                results.getString("category")
+                        ));
                     }
                 }
             }

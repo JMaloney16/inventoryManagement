@@ -29,13 +29,13 @@ public class mainController {
     private ArrayList<Stock> stockArrayList = new ArrayList<>();
     private ArrayList<Supplier> supplierArrayList = new ArrayList<>();
 
-
+    // Connects the database to the application, will not run till called from a menu button as defined in the FXML
     public void connectDatabase(){
         System.out.println("Connecting to database");
         database = new DatabaseConnection("inventory.db");
-        updateTables();
+        updateTables(0, 0);
     }
-
+    // Called on buttons where their action is incomplete
     public void workInProgress(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Work in progress!");
@@ -44,7 +44,7 @@ public class mainController {
 
         alert.showAndWait();
     }
-
+    // Used to select a new database file on the system
     public void openFile(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/file.fxml"));
@@ -59,11 +59,23 @@ public class mainController {
         }
     }
 
-    public void updateTables(){
+    public void updateTables(int selectedStockId, int selectedSupplierId){
         stockArrayList.clear();
         stockService.selectAll(stockArrayList, database);
+        System.out.println("StockArrayList: " + stockArrayList);
+        // aStockList.setItems(FXCollections.observableArrayList(stockArrayList)); // This line breaks everything
 
-        aStockList.setItems(FXCollections.observableArrayList(stockArrayList));
+
+        if(selectedStockId != 0) {
+            for (int n = 0; n < aStockList.getItems().size(); n++){
+                if (aStockList.getItems().get(n).getSku() == selectedStockId) {
+                    aStockList.getSelectionModel().select(n);
+                    aStockList.getFocusModel().focus(n);
+                    aStockList.scrollTo(n);
+                    break;
+                }
+            }
+        }
     }
 
 

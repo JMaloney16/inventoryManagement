@@ -5,6 +5,8 @@
 
 .menu-bar{
     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-text-fill: #1d1d1d ;
+
 }
 
 .menu-bar .label {
@@ -13,3 +15,4 @@
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
+

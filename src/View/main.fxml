@@ -91,7 +91,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Button>
-                                <TableView id="stockTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
+                                <TableView fx:id="stockTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
                                     <columns>
                                         <TableColumn id="skuColumn" prefWidth="75.0" text="SKU" />
                                         <TableColumn id="stockNameColumn" prefWidth="75.0" text="Name" />
@@ -219,7 +219,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </TextField>
-                                <ListView id="aStockList" layoutX="849.0" layoutY="77.0" prefHeight="616.0" prefWidth="310.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="84.0" />
+                                <ListView fx:id="aStockList" layoutX="849.0" layoutY="77.0" prefHeight="616.0" prefWidth="310.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="84.0" />
                             </children></AnchorPane>
                     </content>
                 </Tab>
@@ -227,7 +227,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView id="supplierTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
+                                <TableView fx:id="supplierTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
                                     <columns>
                                         <TableColumn id="supplierIDColumn" prefWidth="75.0" text="Supplier ID" />
                                         <TableColumn id="supplierNameColumn" prefWidth="75.0" text="Supplier Name" />

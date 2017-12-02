@@ -63,8 +63,7 @@ public class mainController {
         stockArrayList.clear();
         stockService.selectAll(stockArrayList, database);
         System.out.println("StockArrayList: " + stockArrayList);
-        // aStockList.setItems(FXCollections.observableArrayList(stockArrayList)); // This line breaks everything
-
+        aStockList.setItems(FXCollections.observableArrayList(stockArrayList));
 
         if(selectedStockId != 0) {
             for (int n = 0; n < aStockList.getItems().size(); n++){

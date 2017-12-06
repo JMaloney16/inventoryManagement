@@ -1,5 +1,14 @@
+
 .background{
     -fx-background-color: darkslategrey;
+}
+
+.tab-pane{
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 120px;
+    -fx-tab-min-height:25px;
+    -fx-tab-max-height:25px;
 }
 
 
@@ -14,5 +23,17 @@
 
     -fx-text-fill: white;
     -fx-opacity: 0.9;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
+}
+
+.menu-item:focused {
+    -fx-background-color: derive(#1d1d1d, 50%);
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: white;
 }
 

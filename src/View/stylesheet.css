@@ -11,6 +11,12 @@
     -fx-tab-max-height:25px;
 }
 
+.tab-pane .label{
+
+}
+.tab-header-background{
+    -fx-background-color: derive(#1d1d1d, 30%);
+}
 
 .menu-bar{
     -fx-background-color: derive(#1d1d1d, 20%);

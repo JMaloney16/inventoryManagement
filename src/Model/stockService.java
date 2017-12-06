@@ -8,7 +8,7 @@ import java.util.List;
 public class stockService {
 
     public static void selectAll(List<Stock> destination, DatabaseConnection database){
-        PreparedStatement statement = database.newStatement("SELECT sku, name, quantity, category FROM Stock ORDER BY sku");
+        PreparedStatement statement = database.newStatement("SELECT SKU, Name, Quantity, Category FROM Stock ORDER BY SKU");
 
         try {
             if (statement != null) {
@@ -17,14 +17,15 @@ public class stockService {
                 if(results != null) {
                     while (results.next()){
                         destination.add(new Stock(
-                                results.getInt("sku"),
-                                results.getString("name"),
-                                results.getInt("quantity"),
-                                results.getString("category")
+                                results.getInt("SKU"),
+                                results.getString("Name"),
+                                results.getInt("Quantity"),
+                                results.getString("Category")
                         ));
                     }
                 }
             }
+            System.out.println(destination);
         } catch (SQLException resultsException){
             System.out.println("Database select all error: " + resultsException.getMessage());
         }

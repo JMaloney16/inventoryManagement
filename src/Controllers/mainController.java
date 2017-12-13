@@ -11,8 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class mainController {
 
@@ -75,6 +77,22 @@ public class mainController {
                 }
             }
         }
+    }
+
+    public void exitPrompt(WindowEvent we) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit Pizza Project");
+        alert.setHeaderText("Are you sure you want to exit?");
+
+        Optional result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            database.disconnect();
+            System.exit(0);
+        } else {
+            we.consume();
+        }
+
     }
 
 

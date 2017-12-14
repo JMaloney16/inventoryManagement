@@ -82,7 +82,7 @@ public class mainController {
     public void exitPrompt(WindowEvent we) {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit Pizza Project");
+        alert.setTitle("Exit Inventory Management");
         alert.setHeaderText("Are you sure you want to exit?");
 
         Optional result = alert.showAndWait();

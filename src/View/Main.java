@@ -25,7 +25,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         primaryStage.setTitle("Inventory Management");
         primaryStage.setScene(new Scene(root, 1200, 800));
-        //primaryStage.setOnCloseRequest((WindowEvent we) -> controller.exitPrompt(we));
+        //primaryStage.setOnCloseRequest((WindowEvent we) -> mainController.exitPrompt(we));
         primaryStage.show();
         ArrayList<Stock> testList = new ArrayList<>();
         /*stockService.selectAll(testList, database);
@@ -36,7 +36,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        //database = new DatabaseConnection("inventory.db");
         launch(args);
 
     }

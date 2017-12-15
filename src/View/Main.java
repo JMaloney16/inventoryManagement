@@ -5,6 +5,8 @@ import Model.DatabaseConnection;
 import Model.Stock;
 import Model.stockService;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +19,8 @@ import java.util.ArrayList;
 public class Main extends Application {
     private static mainController controller;
 
-    //public static DatabaseConnection database;
+    private ObservableList<Stock> stockList = FXCollections.observableArrayList();
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{

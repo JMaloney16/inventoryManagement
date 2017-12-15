@@ -4,12 +4,15 @@ import Model.DatabaseConnection;
 import Model.Stock;
 import Model.Supplier;
 import Model.stockService;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -26,6 +29,17 @@ public class mainController {
     TableView supplierTable;
     @FXML
     ListView<Stock> aStockList;
+    @FXML
+    TableColumn skuColumn;
+    @FXML
+    TableColumn stockNameColumn;
+    @FXML
+    TableColumn stockSupplierIDColumn;
+    @FXML
+    TableColumn quantityColumn;
+    @FXML
+    TableColumn categoryColumn;
+
 
     private DatabaseConnection database;
     private ArrayList<Stock> stockArrayList = new ArrayList<>();
@@ -64,8 +78,11 @@ public class mainController {
     public void updateTables(int selectedStockId, int selectedSupplierId){
         stockArrayList.clear();
         stockService.selectAll(stockArrayList, database);
+        //final ObservableList<Stock> data = FXCollections.observableArrayList(stockArrayList);
         System.out.println("StockArrayList: " + stockArrayList);
         aStockList.setItems(FXCollections.observableArrayList(stockArrayList));
+        //stockNameColumn.setCellValueFactory(new PropertyValueFactory<Stock, String>("name"));
+        //stockTable.setItems(data);
 
         if(selectedStockId != 0) {
             for (int n = 0; n < aStockList.getItems().size(); n++){

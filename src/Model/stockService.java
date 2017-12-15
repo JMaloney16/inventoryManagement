@@ -13,7 +13,6 @@ public class stockService {
         try {
             if (statement != null) {
                 ResultSet results = database.executeQuery(statement);
-
                 if(results != null) {
                     while (results.next()){
                         destination.add(new Stock(
@@ -25,7 +24,6 @@ public class stockService {
                     }
                 }
             }
-            System.out.println(destination);
         } catch (SQLException resultsException){
             System.out.println("Database select all error: " + resultsException.getMessage());
         }

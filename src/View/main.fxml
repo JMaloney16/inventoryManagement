@@ -95,11 +95,11 @@
                                 </Button>
                                 <TableView fx:id="stockTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="25.0">
                                     <columns>
-                                        <TableColumn id="skuColumn" prefWidth="120.0" text="SKU" />
-                                        <TableColumn id="stockNameColumn" prefWidth="120.0" text="Name" />
-                              <TableColumn id="stockSupplierIDColumn" prefWidth="120.0" text="Supplier ID" />
-                              <TableColumn id="quantityColumn" prefWidth="120.0" text="Quantity" />
-                              <TableColumn id="categoryColumn" prefWidth="120.0" text="Category" />
+                                        <TableColumn fx:id="skuColumn" prefWidth="120.0" text="SKU" />
+                                        <TableColumn fx:id="stockNameColumn" prefWidth="120.0" text="Name" />
+                              <TableColumn fx:id="stockSupplierIDColumn" prefWidth="120.0" text="Supplier ID" />
+                              <TableColumn fx:id="quantityColumn" prefWidth="120.0" text="Quantity" />
+                              <TableColumn fx:id="categoryColumn" prefWidth="120.0" text="Category" />
                                     </columns>
                                 </TableView>
                                 <Button layoutX="894.0" layoutY="334.0" mnemonicParsing="false" onAction="#workInProgress" text="Update" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="350.0">

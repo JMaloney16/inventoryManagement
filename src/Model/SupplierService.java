@@ -8,7 +8,7 @@ import java.util.List;
 public class SupplierService {
 
     public static void selectAll(List<Supplier> destination, DatabaseConnection database) {
-        PreparedStatement statement = database.newStatement("SELECT supplierID, name, address, city, postcode, phoneNo, email FROM Supplier ORDER BY supplierID");
+        PreparedStatement statement = database.newStatement("SELECT supplierID, name, address, city, phoneNo, email FROM Supplier ORDER BY supplierID");
 
         try {
             if (statement != null) {
@@ -16,7 +16,7 @@ public class SupplierService {
 
                 if (results != null) {
                     while (results.next()) {
-                        destination.add(new Supplier(results.getInt("supplierID"), results.getString("name"), results.getString("address"), results.getString("city"), results.getString("postcode"),results.getString("phoneNo"), results.getString("email")));
+                        destination.add(new Supplier(results.getInt("SupplierID"), results.getString("name"), results.getString("address"), results.getString("city"), results.getString("phoneNo"), results.getString("email")));
                     }
                 }
             }
@@ -29,14 +29,14 @@ public class SupplierService {
     public static Supplier selectById(int id, DatabaseConnection database) {
         Supplier result = null;
 
-        PreparedStatement statement = database.newStatement("SELECT supplierID, name, address, city, postcode, phoneNo, email FROM Supplier WHERE supplierID = ?");
+        PreparedStatement statement = database.newStatement("SELECT supplierID, name, address, city, phoneNo, email FROM Supplier WHERE supplierID = ?");
 
         try {
             if (statement != null) {
                 ResultSet results = database.executeQuery(statement);
 
                 if (results != null) {
-                    result = new Supplier(results.getInt("supplierID"), results.getString("name"), results.getString("address"), results.getString("city"), results.getString("postcode"),results.getString("phoneNo"), results.getString("email"));
+                    result = new Supplier(results.getInt("SupplierID"), results.getString("name"), results.getString("address"), results.getString("city"), results.getString("phoneNo"), results.getString("email"));
                 }
             }
         } catch (SQLException resultsException) {
@@ -54,14 +54,13 @@ public class SupplierService {
 
         try {
             if (existingItem == null) {
-                PreparedStatement statement = database.newStatement("INSERT INTO Supplier (supplierID, name, address, city, postcode, phoneNo, email) VALUES (?, ?, ?, ?, ?, ?))");
+                PreparedStatement statement = database.newStatement("INSERT INTO Supplier (supplierID, name, address, city, phoneNo, email) VALUES (?, ?, ?, ?, ?, ?))");
                 statement.setInt(1, itemToSave.getSupplierID());
                 statement.setString(2, itemToSave.getName());
                 statement.setString(3, itemToSave.getAddress());
                 statement.setString(4, itemToSave.getCity());
-                statement.setString(5, itemToSave.getPostcode());
-                statement.setString(6, itemToSave.getPhoneNo());
-                statement.setString(7, itemToSave.getEmail());
+                statement.setString(5, itemToSave.getPhoneNo());
+                statement.setString(6, itemToSave.getEmail());
                 database.executeUpdate(statement);
 
             } else {

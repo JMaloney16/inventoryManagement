@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.mainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.mainController">
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
@@ -231,13 +231,13 @@
                             <children>
                                 <TableView fx:id="supplierTable" layoutX="19.0" layoutY="27.0" prefHeight="696.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="375.0" AnchorPane.topAnchor="25.0">
                                     <columns>
-                                        <TableColumn id="supplierIDColumn" prefWidth="85.0" text="Supplier ID" />
-                                        <TableColumn id="supplierNameColumn" prefWidth="120.0" text="Supplier Name" />
-                              <TableColumn id="addressColumn" prefWidth="130.0" text="Address" />
-                              <TableColumn id="cityColumn" prefWidth="85.0" text="City" />
-                              <TableColumn id="postcodeColumn" prefWidth="85.0" text="Postcode" />
-                              <TableColumn id="phoneNoColumn" prefWidth="140.0" text="Phone No." />
-                              <TableColumn id="emailColumn" prefWidth="160.0" text="Email Address" />
+                                        <TableColumn id="supplierIDColumn" fx:id="supplierIDColumn" prefWidth="85.0" text="Supplier ID" />
+                                        <TableColumn id="supplierNameColumn" fx:id="supplierNameColumn" prefWidth="120.0" text="Supplier Name" />
+                              <TableColumn id="addressColumn" fx:id="supplierAddressColumn" prefWidth="130.0" text="Address" />
+                              <TableColumn id="cityColumn" fx:id="supplierCityColumn" prefWidth="85.0" text="City" />
+                              <TableColumn id="postcodeColumn" fx:id="supplierPostcodeColumn" prefWidth="85.0" text="Postcode" />
+                              <TableColumn id="phoneNoColumn" fx:id="supplierPhoneColumn" prefWidth="140.0" text="Phone No." />
+                              <TableColumn id="emailColumn" fx:id="supplierEmailColumn" prefWidth="160.0" text="Email Address" />
                                     </columns>
                                 </TableView>
                                 <Label layoutX="847.0" layoutY="25.0" prefHeight="20.0" text="Supplier ID:" AnchorPane.rightAnchor="281.0" AnchorPane.topAnchor="25.0">

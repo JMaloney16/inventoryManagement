@@ -1,9 +1,7 @@
 package Controllers;
 
-import Model.DatabaseConnection;
-import Model.Stock;
-import Model.Supplier;
-import Model.stockService;
+import Model.*;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.omg.CORBA.TCKind;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -22,11 +21,11 @@ import java.util.Optional;
 public class mainController {
 
     @FXML
-    TextField sku;
+    TextField skuField;
     @FXML
-    TableView stockTable;
+    TableView<Stock> stockTable;
     @FXML
-    TableView supplierTable;
+    TableView<Supplier> supplierTable;
     @FXML
     ListView<Stock> aStockList;
     @FXML
@@ -39,7 +38,38 @@ public class mainController {
     TableColumn quantityColumn;
     @FXML
     TableColumn categoryColumn;
+    @FXML
+    TableColumn supplierIDColumn;
+    @FXML
+    TableColumn supplierNameColumn;
+    @FXML
+    TableColumn supplierAddressColumn;
+    @FXML
+    TableColumn supplierCityColumn;
+    @FXML
+    TableColumn supplierPostcodeColumn;
+    @FXML
+    TableColumn supplierPhoneColumn;
+    @FXML
+    TableColumn supplierEmailColumn;
 
+    @FXML
+    public void initialize(){
+        skuColumn.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("sku"));
+        stockNameColumn.setCellValueFactory(new PropertyValueFactory<Stock, String>("name"));
+        stockSupplierIDColumn.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("supplierID"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("quantity"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<Stock, String>("category"));
+
+        supplierIDColumn.setCellValueFactory(new PropertyValueFactory<Supplier, Integer>("supplierID"));
+        supplierNameColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("name"));
+        supplierAddressColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("address"));
+        supplierCityColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("city"));
+        supplierPostcodeColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("postcode"));
+        supplierPhoneColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("phoneNo"));
+        supplierEmailColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("email"));
+
+    }
 
     private DatabaseConnection database;
     private ArrayList<Stock> stockArrayList = new ArrayList<>();
@@ -78,11 +108,12 @@ public class mainController {
     public void updateTables(int selectedStockId, int selectedSupplierId){
         stockArrayList.clear();
         stockService.selectAll(stockArrayList, database);
-        //final ObservableList<Stock> data = FXCollections.observableArrayList(stockArrayList);
         System.out.println("StockArrayList: " + stockArrayList);
         aStockList.setItems(FXCollections.observableArrayList(stockArrayList));
-        //stockNameColumn.setCellValueFactory(new PropertyValueFactory<Stock, String>("name"));
-        //stockTable.setItems(data);
+        stockTable.setItems(FXCollections.observableArrayList(stockArrayList));
+        SupplierService.selectAll(supplierArrayList, database);
+        System.out.println("supplierArrayList: " + supplierArrayList);
+        supplierTable.setItems(FXCollections.observableArrayList(supplierArrayList));
 
         if(selectedStockId != 0) {
             for (int n = 0; n < aStockList.getItems().size(); n++){
@@ -95,6 +126,7 @@ public class mainController {
             }
         }
     }
+    
 
     public void exitPrompt(WindowEvent we) {
 

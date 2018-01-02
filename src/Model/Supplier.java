@@ -7,14 +7,30 @@ public class Supplier {
     private String city;
     private String phoneNo;
     private String email;
+    private String postcode;
 
-    public Supplier(int supplierID, String name, String address, String city, String phoneNo, String email) {
+    public Supplier(int supplierID, String name, String address, String city, String phoneNo, String email, String postcode) {
         this.supplierID = supplierID;
         this.name = name;
         this.address = address;
         this.city = city;
         this.phoneNo = phoneNo;
         this.email = email;
+        this.postcode = postcode;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    @Override
+    public String toString() {
+        return supplierID + ", " + name + ", " + address + ", " + city + ", " + postcode + ", " + phoneNo + ", "
+                + email;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public int getSupplierID() {
@@ -65,8 +81,4 @@ public class Supplier {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
 }

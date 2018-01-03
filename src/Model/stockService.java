@@ -56,7 +56,7 @@ public class stockService {
 
         try {
             if (existingItem == null) {
-                PreparedStatement statement = database.newStatement("INSERT INTO Stock (sku, name, quantity, category) VALUES (?, ?, ?, ?))");
+                PreparedStatement statement = database.newStatement("INSERT INTO Stock (sku, name, quantity, category) VALUES (?, ?, ?, ?)");
                 statement.setInt(1, itemToSave.getSku());
                 statement.setString(2, itemToSave.getName());
                 statement.setInt(3, itemToSave.getQuantity());
@@ -69,7 +69,6 @@ public class stockService {
                 statement.setString(2, itemToSave.getName());
                 statement.setInt(3, itemToSave.getQuantity());
                 statement.setString(4, itemToSave.getCategory());
-                statement.setInt(5, itemToSave.getSku());
                 database.executeUpdate(statement);
             }
         } catch (SQLException resultsException) {

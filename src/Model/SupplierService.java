@@ -65,13 +65,14 @@ public class SupplierService {
                 database.executeUpdate(statement);
 
             } else {
-                PreparedStatement statement = database.newStatement("UPDATE Supplier SET supplierID = ?, phoneNo = ?, name = ?, address = ?, city = ?, phoneNo = ?, email = ? WHERE supplierID = ?");
+                PreparedStatement statement = database.newStatement("UPDATE Supplier SET supplierID = ?, phoneNo = ?, name = ?, address = ?, city = ?, postcode = ?, phoneNo = ?, email = ? WHERE supplierID = ?");
                 statement.setInt(1, itemToSave.getSupplierID());
                 statement.setString(2, itemToSave.getName());
                 statement.setString(3, itemToSave.getAddress());
                 statement.setString(4, itemToSave.getCity());
-                statement.setString(5, itemToSave.getPhoneNo());
-                statement.setString(6, itemToSave.getEmail());
+                statement.setString(5, itemToSave.getPostcode());
+                statement.setString(6, itemToSave.getPhoneNo());
+                statement.setString(7, itemToSave.getEmail());
                 database.executeUpdate(statement);
             }
         } catch (SQLException resultsException) {

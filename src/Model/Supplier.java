@@ -5,18 +5,20 @@ public class Supplier {
     private String name;
     private String address;
     private String city;
+    private String postcode;
     private String phoneNo;
     private String email;
-    private String postcode;
 
-    public Supplier(int supplierID, String name, String address, String city, String phoneNo, String email, String postcode) {
+
+    public Supplier(int supplierID, String name, String address, String city, String postcode, String phoneNo, String email) {
         this.supplierID = supplierID;
         this.name = name;
         this.address = address;
         this.city = city;
+        this.postcode = postcode;
         this.phoneNo = phoneNo;
         this.email = email;
-        this.postcode = postcode;
+
     }
 
     public String getPostcode() {

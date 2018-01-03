@@ -1,10 +1,7 @@
 package Controllers;
 
 import Model.*;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,21 +10,46 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.omg.CORBA.TCKind;
 
+import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class mainController {
 
     @FXML
-    TextField skuField;
+    TextField stockSku;
+    @FXML
+    TextField stockName;
+    @FXML
+    TextField stockSupplier;
+    @FXML
+    TextField stockQuantity;
+    @FXML
+    TextField stockCategory;
+
+    @FXML
+    TextField supplierID;
+    @FXML
+    TextField supplierName;
+    @FXML
+    TextField supplierAddress;
+    @FXML
+    TextField supplierCity;
+    @FXML
+    TextField supplierPostcode;
+    @FXML
+    TextField supplierPhone;
+    @FXML
+    TextField supplierEmail;
+
     @FXML
     TableView<Stock> stockTable;
     @FXML
     TableView<Supplier> supplierTable;
     @FXML
     ListView<Stock> aStockList;
+
     @FXML
     TableColumn skuColumn;
     @FXML
@@ -68,14 +90,14 @@ public class mainController {
         supplierPostcodeColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("postcode"));
         supplierPhoneColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("phoneNo"));
         supplierEmailColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("email"));
-
     }
 
     private DatabaseConnection database;
+
     private ArrayList<Stock> stockArrayList = new ArrayList<>();
     private ArrayList<Supplier> supplierArrayList = new ArrayList<>();
-
     // Connects the database to the application, will not run till called from a menu button as defined in the FXML
+
     public void connectDatabase(){
         System.out.println("Connecting to database");
         database = new DatabaseConnection("inventory.db");
@@ -104,7 +126,6 @@ public class mainController {
             e.printStackTrace();
         }
     }
-
     public void updateTables(int selectedStockId, int selectedSupplierId){
         stockArrayList.clear();
         stockService.selectAll(stockArrayList, database);
@@ -126,7 +147,40 @@ public class mainController {
             }
         }
     }
-    
+
+    public void loadStockRow() {
+        if (stockTable.getSelectionModel().getSelectedItem() != null){
+            Stock selectedStock = stockTable.getSelectionModel().getSelectedItem();
+            stockSku.setText(String.valueOf(selectedStock.getSku()));
+            stockName.setText(selectedStock.getName());
+            stockQuantity.setText(String.valueOf(selectedStock.getQuantity()));
+            stockCategory.setText(selectedStock.getCategory());
+        }
+    }
+
+    public void updateStock(){
+        Stock selectedStock = stockTable.getSelectionModel().getSelectedItem();
+        selectedStock.setSku(Integer.parseInt(stockSku.getText()));
+        selectedStock.setName(stockName.getText());
+        selectedStock.setQuantity(Integer.parseInt(stockQuantity.getText()));
+        selectedStock.setCategory(stockCategory.getText());
+        System.out.println(selectedStock);
+        stockService.save(selectedStock, database);
+        updateTables(0,0);
+    }
+
+    public void loadSupplierRow(){
+        if (supplierTable.getSelectionModel().getSelectedItem() != null) {
+            Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
+            supplierID.setText(String.valueOf(selectedSupplier.getSupplierID()));
+            supplierName.setText(selectedSupplier.getName());
+            supplierAddress.setText(String.valueOf(selectedSupplier.getAddress()));
+            supplierCity.setText(selectedSupplier.getCity());
+            supplierPostcode.setText(selectedSupplier.getPostcode());
+            supplierPhone.setText(selectedSupplier.getPhoneNo());
+            supplierEmail.setText(selectedSupplier.getEmail());
+        }
+    }
 
     public void exitPrompt(WindowEvent we) {
 

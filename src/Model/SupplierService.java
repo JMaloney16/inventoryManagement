@@ -54,7 +54,7 @@ public class SupplierService {
 
         try {
             if (existingItem == null) {
-                PreparedStatement statement = database.newStatement("INSERT INTO Supplier (supplierID, name, address, city, postcode, phoneNo, email) VALUES (?, ?, ?, ?, ?, ?))");
+                PreparedStatement statement = database.newStatement("INSERT INTO Supplier (supplierID, name, address, city, postcode, phoneNo, email) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 statement.setInt(1, itemToSave.getSupplierID());
                 statement.setString(2, itemToSave.getName());
                 statement.setString(3, itemToSave.getAddress());

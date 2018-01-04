@@ -159,17 +159,6 @@ public class mainController {
         }
     }
 
-    public void updateStock(){
-        Stock selectedStock = stockTable.getSelectionModel().getSelectedItem();
-        selectedStock.setSku(Integer.parseInt(stockSku.getText()));
-        selectedStock.setName(stockName.getText());
-        selectedStock.setQuantity(Integer.parseInt(stockQuantity.getText()));
-        selectedStock.setCategory(stockCategory.getText());
-        System.out.println(selectedStock);
-        stockService.save(selectedStock, database);
-        updateTables(0,0);
-    }
-
     public void loadSupplierRow(){
         if (supplierTable.getSelectionModel().getSelectedItem() != null) {
             Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
@@ -180,6 +169,51 @@ public class mainController {
             supplierPostcode.setText(selectedSupplier.getPostcode());
             supplierPhone.setText(selectedSupplier.getPhoneNo());
             supplierEmail.setText(selectedSupplier.getEmail());
+        }
+    }
+
+    public void updateStock(){
+        Stock selectedStock = stockTable.getSelectionModel().getSelectedItem();
+        selectedStock.setSku(Integer.parseInt(stockSku.getText()));
+        selectedStock.setName(stockName.getText());
+        selectedStock.setQuantity(Integer.parseInt(stockQuantity.getText()));
+        selectedStock.setCategory(stockCategory.getText());
+        System.out.println(selectedStock);
+        stockService.save(selectedStock, database);
+        updateTables(selectedStock.getSku(),0);
+    }
+
+    public void updateSuppliers(){
+        Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
+        selectedSupplier.setSupplierID(Integer.parseInt(supplierID.getText()));
+        selectedSupplier.setName(supplierName.getText());
+        selectedSupplier.setAddress(supplierAddress.getText());
+        selectedSupplier.setCity(supplierCity.getText());
+        selectedSupplier.setPostcode(supplierPostcode.getText());
+        selectedSupplier.setPhoneNo(supplierPhone.getText());
+        selectedSupplier.setEmail(supplierEmail.getText());
+        System.out.println(selectedSupplier);
+        SupplierService.save(selectedSupplier, database);
+        updateTables(0,selectedSupplier.getSupplierID());
+    }
+
+    public void deleteStock() {
+        Stock selectedStock = stockTable.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            stockService.deleteById(selectedStock.getSku(), database);
+            updateTables(0, 0);
+        } else {
+            System.out.println("No item selected!");
+        }
+    }
+
+    public void deleteSupplier(){
+        Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
+        if (selectedSupplier != null) {
+            SupplierService.deleteById(selectedSupplier.getSupplierID(), database);
+            updateTables(0, 0);
+        }else{
+            System.out.println("No item selected!");
         }
     }
 

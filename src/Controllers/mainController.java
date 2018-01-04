@@ -128,6 +128,7 @@ public class mainController {
     }
     public void updateTables(int selectedStockId, int selectedSupplierId){
         stockArrayList.clear();
+        supplierArrayList.clear();
         stockService.selectAll(stockArrayList, database);
         System.out.println("StockArrayList: " + stockArrayList);
         aStockList.setItems(FXCollections.observableArrayList(stockArrayList));

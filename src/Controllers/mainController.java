@@ -130,7 +130,7 @@ public class mainController {
         TextInputDialog dialog = new TextInputDialog("inventory"); /* The textfield the user edits which
         defaults to "inventory" which is the name of the default database file */
         dialog.setTitle("Choose Inventory File");
-        dialog.setHeaderText("Please enter a file name (without file extension");
+        dialog.setHeaderText("Please enter a file name (without file extension)");
         dialog.setContentText("File: ");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) { // If the user closes the dialog then no changes are made to the file path

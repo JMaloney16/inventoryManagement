@@ -9,9 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -90,17 +88,19 @@ public class mainController {
         supplierPostcodeColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("postcode"));
         supplierPhoneColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("phoneNo"));
         supplierEmailColumn.setCellValueFactory(new PropertyValueFactory<Supplier, String>("email"));
+        connectDatabase();
     }
 
-    private DatabaseConnection database;
+    private static DatabaseConnection database;
 
     private ArrayList<Stock> stockArrayList = new ArrayList<>();
     private ArrayList<Supplier> supplierArrayList = new ArrayList<>();
+    private String databaseFile = ("inventory.db");
     // Connects the database to the application, will not run till called from a menu button as defined in the FXML
 
     public void connectDatabase(){
         System.out.println("Connecting to database");
-        database = new DatabaseConnection("inventory.db");
+        database = new DatabaseConnection(databaseFile);
         updateTables(0, 0);
     }
     // Called on buttons where their action is incomplete
@@ -109,10 +109,9 @@ public class mainController {
         alert.setTitle("Work in progress!");
         alert.setHeaderText(null);
         alert.setContentText("This feature is Work-In-Progress (WIP), sorry!");
-
         alert.showAndWait();
     }
-    // Used to select a new database file on the system
+    // Used to select a new database file on the system - does not work and has been replaced by openFileDialog
     public void openFile(){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/file.fxml"));
@@ -126,13 +125,28 @@ public class mainController {
             e.printStackTrace();
         }
     }
+    // Current solution to select a new database file
+    public void openFileDialog() {
+        TextInputDialog dialog = new TextInputDialog("inventory"); /* The textfield the user edits which
+        defaults to "inventory" which is the name of the default database file */
+        dialog.setTitle("Choose Inventory File");
+        dialog.setHeaderText("Please enter a file name (without file extension");
+        dialog.setContentText("File: ");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) { // If the user closes the dialog then no changes are made to the file path
+            databaseFile = (result.get() + ".db"); // Adds the .db file extension to the user input
+            System.out.println(databaseFile); // Outputs the new file name to the console for testing
+        }
+
+    }
+
     public void updateTables(int selectedStockId, int selectedSupplierId){
         stockArrayList.clear();
-        supplierArrayList.clear();
+        supplierArrayList.clear(); // Clears the current list of items for each of the tables
         stockService.selectAll(stockArrayList, database);
         System.out.println("StockArrayList: " + stockArrayList);
         aStockList.setItems(FXCollections.observableArrayList(stockArrayList));
-        stockTable.setItems(FXCollections.observableArrayList(stockArrayList));
+        stockTable.setItems(FXCollections.observableArrayList(stockArrayList)); // Set the stock table and list to the
         SupplierService.selectAll(supplierArrayList, database);
         System.out.println("supplierArrayList: " + supplierArrayList);
         supplierTable.setItems(FXCollections.observableArrayList(supplierArrayList));
@@ -151,7 +165,7 @@ public class mainController {
 
     public void loadStockRow() {
         if (stockTable.getSelectionModel().getSelectedItem() != null){
-            Stock selectedStock = stockTable.getSelectionModel().getSelectedItem();
+            Stock selectedStock = stockTable.getSelectionModel().getSelectedItem(); // Get the selected item from the table
             stockSku.setText(String.valueOf(selectedStock.getSku()));
             stockName.setText(selectedStock.getName());
             stockQuantity.setText(String.valueOf(selectedStock.getQuantity()));
@@ -161,8 +175,8 @@ public class mainController {
 
     public void loadSupplierRow(){
         if (supplierTable.getSelectionModel().getSelectedItem() != null) {
-            Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
-            supplierID.setText(String.valueOf(selectedSupplier.getSupplierID()));
+            Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem(); // Get the selected item from the table
+            supplierID.setText(String.valueOf(selectedSupplier.getSupplierID())); // Set the value of the textfields
             supplierName.setText(selectedSupplier.getName());
             supplierAddress.setText(String.valueOf(selectedSupplier.getAddress()));
             supplierCity.setText(selectedSupplier.getCity());
@@ -179,8 +193,8 @@ public class mainController {
         selectedStock.setQuantity(Integer.parseInt(stockQuantity.getText()));
         selectedStock.setCategory(stockCategory.getText());
         System.out.println(selectedStock);
-        stockService.save(selectedStock, database);
-        updateTables(selectedStock.getSku(),0);
+        stockService.save(selectedStock, database); // Update the database table
+        updateTables(selectedStock.getSku(),0); // Refresh changes
     }
 
     public void updateSuppliers(){
@@ -193,14 +207,14 @@ public class mainController {
         selectedSupplier.setPhoneNo(supplierPhone.getText());
         selectedSupplier.setEmail(supplierEmail.getText());
         System.out.println(selectedSupplier);
-        SupplierService.save(selectedSupplier, database);
-        updateTables(0,selectedSupplier.getSupplierID());
+        SupplierService.save(selectedSupplier, database); // Update the SQL database table
+        updateTables(0,selectedSupplier.getSupplierID()); // Refresh changes
     }
 
     public void deleteStock() {
         Stock selectedStock = stockTable.getSelectionModel().getSelectedItem();
         if (selectedStock != null) {
-            stockService.deleteById(selectedStock.getSku(), database);
+            stockService.deleteById(selectedStock.getSku(), database); // Deletes the selected item
             updateTables(0, 0);
         } else {
             System.out.println("No item selected!");
@@ -217,21 +231,8 @@ public class mainController {
         }
     }
 
-    public void exitPrompt(WindowEvent we) {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit Inventory Management");
-        alert.setHeaderText("Are you sure you want to exit?");
-
-        Optional result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            database.disconnect();
-            System.exit(0);
-        } else {
-            we.consume();
-        }
-
+    public static void disconnectDB(){ // Allows the database to be disconnected when closing the program
+        database.disconnect();
     }
-
 
 }

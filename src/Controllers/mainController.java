@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -96,6 +97,7 @@ public class mainController {
     private ArrayList<Stock> stockArrayList = new ArrayList<>();
     private ArrayList<Supplier> supplierArrayList = new ArrayList<>();
     private String databaseFile = ("inventory.db");
+    private String userFile;
     // Connects the database to the application, will not run till called from a menu button as defined in the FXML
 
     public void connectDatabase(){
@@ -134,8 +136,16 @@ public class mainController {
         dialog.setContentText("File: ");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) { // If the user closes the dialog then no changes are made to the file path
-            databaseFile = (result.get() + ".db"); // Adds the .db file extension to the user input
-            System.out.println(databaseFile); // Outputs the new file name to the console for testing
+            userFile = (result.get() + ".db"); // Adds the .db file extension to the user input
+            File fileCheck = new File(userFile);
+            if (fileCheck.isFile()) {
+                System.out.println(userFile); // Outputs the new file name to the console for testing
+                databaseFile = userFile;
+            } else {
+                String message = ("Not a valid file!");
+                System.out.println(message);
+                errorDialog(message);
+            }
         }
 
     }
@@ -157,6 +167,17 @@ public class mainController {
                     aStockList.getSelectionModel().select(n);
                     aStockList.getFocusModel().focus(n);
                     aStockList.scrollTo(n);
+                    break;
+                }
+            }
+        }
+
+        if(selectedSupplierId != 0){
+            for (int n = 0; n < supplierTable.getItems().size(); n++){
+                if (supplierTable.getItems().get(n).getSupplierID() == selectedStockId) {
+                    supplierTable.getSelectionModel().select(n);
+                    supplierTable.getFocusModel().focus(n);
+                    supplierTable.scrollTo(n);
                     break;
                 }
             }
@@ -188,27 +209,41 @@ public class mainController {
 
     public void updateStock(){
         Stock selectedStock = stockTable.getSelectionModel().getSelectedItem();
-        selectedStock.setSku(Integer.parseInt(stockSku.getText()));
-        selectedStock.setName(stockName.getText());
-        selectedStock.setQuantity(Integer.parseInt(stockQuantity.getText()));
-        selectedStock.setCategory(stockCategory.getText());
-        System.out.println(selectedStock);
-        stockService.save(selectedStock, database); // Update the database table
-        updateTables(selectedStock.getSku(),0); // Refresh changes
+        if (selectedStock != null) {
+            stockService.deleteById(Integer.parseInt(stockSku.getText()), database);
+            selectedStock.setSku(Integer.parseInt(stockSku.getText()));
+            selectedStock.setName(stockName.getText());
+            selectedStock.setQuantity(Integer.parseInt(stockQuantity.getText()));
+            selectedStock.setCategory(stockCategory.getText());
+            System.out.println(selectedStock);
+            stockService.save(selectedStock, database); // Update the database table
+            updateTables(selectedStock.getSku(),0); // Refresh changes
+        } else {
+            String message = ("Please select an already existing stock item first");
+            System.out.println(message);
+            errorDialog(message);
+        }
     }
 
     public void updateSuppliers(){
-        Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
-        selectedSupplier.setSupplierID(Integer.parseInt(supplierID.getText()));
-        selectedSupplier.setName(supplierName.getText());
-        selectedSupplier.setAddress(supplierAddress.getText());
-        selectedSupplier.setCity(supplierCity.getText());
-        selectedSupplier.setPostcode(supplierPostcode.getText());
-        selectedSupplier.setPhoneNo(supplierPhone.getText());
-        selectedSupplier.setEmail(supplierEmail.getText());
-        System.out.println(selectedSupplier);
-        SupplierService.save(selectedSupplier, database); // Update the SQL database table
-        updateTables(0,selectedSupplier.getSupplierID()); // Refresh changes
+            Supplier selectedSupplier = supplierTable.getSelectionModel().getSelectedItem();
+        if (selectedSupplier != null) {
+            SupplierService.deleteById(Integer.parseInt(supplierID.getText()), database);
+            selectedSupplier.setSupplierID(Integer.parseInt(supplierID.getText()));
+            selectedSupplier.setName(supplierName.getText());
+            selectedSupplier.setAddress(supplierAddress.getText());
+            selectedSupplier.setCity(supplierCity.getText());
+            selectedSupplier.setPostcode(supplierPostcode.getText());
+            selectedSupplier.setPhoneNo(supplierPhone.getText());
+            selectedSupplier.setEmail(supplierEmail.getText());
+            System.out.println(selectedSupplier);
+            SupplierService.save(selectedSupplier, database); // Update the SQL database table
+            updateTables(0,selectedSupplier.getSupplierID()); // Refresh changes
+        } else {
+            String message = ("Please select an already existing supplier item first");
+            System.out.println(message);
+            errorDialog(message);
+        }
     }
 
     public void deleteStock() {
@@ -217,7 +252,9 @@ public class mainController {
             stockService.deleteById(selectedStock.getSku(), database); // Deletes the selected item
             updateTables(0, 0);
         } else {
-            System.out.println("No item selected!");
+            String message = ("No stock item has been selected!");
+            System.out.println(message);
+            errorDialog(message);
         }
     }
 
@@ -227,10 +264,19 @@ public class mainController {
             SupplierService.deleteById(selectedSupplier.getSupplierID(), database);
             updateTables(0, 0);
         }else{
-            System.out.println("No item selected!");
+            String message = ("No supplier item has been selected!");
+            System.out.println(message);
+            errorDialog(message);
         }
     }
 
+    public void errorDialog(String message){ // Creates a dialog popup that informs the user of their error
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error!");
+        alert.setHeaderText("There has been a runtime error!");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     public static void disconnectDB(){ // Allows the database to be disconnected when closing the program
         database.disconnect();
     }

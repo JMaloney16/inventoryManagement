@@ -8,7 +8,7 @@ import java.util.List;
 public class stockService {
 
     public static void selectAll(List<Stock> destination, DatabaseConnection database){
-        PreparedStatement statement = database.newStatement("SELECT SKU, Name, Quantity, Category FROM Stock ORDER BY SKU");
+        PreparedStatement statement = database.newStatement("SELECT SKU, Name, Quantity, Category, SupplierID FROM Stock ORDER BY SKU");
 
         try {
             if (statement != null) {
@@ -19,7 +19,8 @@ public class stockService {
                                 results.getInt("SKU"),
                                 results.getString("Name"),
                                 results.getInt("Quantity"),
-                                results.getString("Category")
+                                results.getString("Category"),
+                                results.getInt("SupplierID")
                         ));
                     }
                 }
@@ -32,14 +33,14 @@ public class stockService {
     public static Stock selectById(int id, DatabaseConnection database){
         Stock result = null;
 
-        PreparedStatement statement = database.newStatement("SELECT sku, name, quantity, category FROM Stock WHERE sku = ?");
+        PreparedStatement statement = database.newStatement("SELECT sku, name, quantity, category, SupplierID FROM Stock WHERE sku = ?");
 
         try {
             if (statement != null) {
                 ResultSet results = database.executeQuery(statement);
 
                 if (results != null){
-                    result = new Stock(results.getInt("sku"), results.getString("name"), results.getInt("quantity"), results.getString("category"));
+                    result = new Stock(results.getInt("sku"), results.getString("name"), results.getInt("quantity"), results.getString("category"), results.getInt("SupplierID"));
                 }
             }
         } catch (SQLException resultsException){
@@ -56,19 +57,21 @@ public class stockService {
 
         try {
             if (existingItem == null) {
-                PreparedStatement statement = database.newStatement("INSERT INTO Stock (sku, name, quantity, category) VALUES (?, ?, ?, ?)");
+                PreparedStatement statement = database.newStatement("INSERT INTO Stock (sku, name, quantity, category, SupplierID) VALUES (?, ?, ?, ?, ?)");
                 statement.setInt(1, itemToSave.getSku());
                 statement.setString(2, itemToSave.getName());
                 statement.setInt(3, itemToSave.getQuantity());
                 statement.setString(4, itemToSave.getCategory());
+                statement.setInt(5, itemToSave.getSupplierID());
                 database.executeUpdate(statement);
 
             } else {
-                PreparedStatement statement = database.newStatement("UPDATE Stock SET sku = ?, name = ?, quantity = ?, category = ? WHERE sku = ?");
+                PreparedStatement statement = database.newStatement("UPDATE Stock SET sku = ?, name = ?, quantity = ?, category = ?, SupplierID = ? WHERE sku = ?");
                 statement.setInt(1, itemToSave.getSku());
                 statement.setString(2, itemToSave.getName());
                 statement.setInt(3, itemToSave.getQuantity());
                 statement.setString(4, itemToSave.getCategory());
+                statement.setInt(5, itemToSave.getSupplierID());
                 database.executeUpdate(statement);
             }
         } catch (SQLException resultsException) {

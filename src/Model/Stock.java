@@ -5,12 +5,14 @@ public class Stock {
     private String name;
     private int quantity;
     private String category;
+    private int supplierID;
 
-    public Stock(int sku, String name, int quantity, String category) {
+    public Stock(int sku, String name, int quantity, String category, int supplierID) {
         this.sku = sku;
         this.name = name;
         this.quantity = quantity;
         this.category = category;
+        this.supplierID = supplierID;
     }
 
     public int getSku() {
@@ -45,8 +47,16 @@ public class Stock {
         this.category = category;
     }
 
+    public int getSupplierID() {
+        return supplierID;
+    }
+
+    public void setSupplierID(int supplierID) {
+        this.supplierID = supplierID;
+    }
+
     @Override
     public String toString() {
-        return sku + ", " + name + ", " + quantity + ", " + category;
+        return sku + ", " + name + ", " + quantity + ", " + category + ", " + supplierID;
     }
 }

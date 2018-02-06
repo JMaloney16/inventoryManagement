@@ -399,7 +399,6 @@
                   <MenuItem mnemonicParsing="false" onAction="#openFileDialog" text="File Path" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit" />
             </menus>
         </MenuBar>
     </top>
